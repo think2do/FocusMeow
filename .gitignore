@@ -1,0 +1,10 @@
+node_modules/
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+*.xcworkspace
+*.xcuserdata
+.metro-health-check*
+.DS_Store
+*.tar.gz
+*.tgz
