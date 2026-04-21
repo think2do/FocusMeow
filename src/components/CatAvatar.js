@@ -5,10 +5,10 @@ import { BREEDS } from '../data/gameData';
 import PngCatAvatar from './PngCatAvatar';
 import { PNG_BREEDS } from '../data/catImages';
 
-export default function CatAvatar({ breedId, level = 1, state = 'idle', size = 120, isRare, rareType, breed2, rounded = 0 }) {
+export default function CatAvatar({ breedId, level = 1, state = 'idle', size = 120, isRare, rareType, breed2, rounded = 0, displayMode = 'default' }) {
   // Use PNG sprites for normal breeds, or rare cats with PNG (black/rainbow/couple)
   if (PNG_BREEDS.includes(breedId)) {
-    return <PngCatAvatar breedId={breedId} state={state} size={size} rounded={rounded} />;
+    return <PngCatAvatar breedId={breedId} state={state} size={size} rounded={rounded} displayMode={displayMode} />;
   }
 
   // Map 'complete' state to 'happy' for SVG cats

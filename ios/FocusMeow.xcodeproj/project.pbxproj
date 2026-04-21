@@ -7,43 +7,142 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C80B921A6F3F58F76C31292 /* libPods-FocusMeow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-FocusMeow.a */; };
+		A1B2C3D4E5F60718293A4B01 /* FocusMeowLiveActivityExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B10 /* FocusMeowLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A1B2C3D4E5F60718293A4B02 /* FocusMeowLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B12 /* FocusMeowLiveActivity.swift */; };
+		A1B2C3D4E5F60718293A4B03 /* FocusSessionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B11 /* FocusSessionAttributes.swift */; };
+		A1B2C3D4E5F60718293A4B04 /* FocusSessionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B11 /* FocusSessionAttributes.swift */; };
+		A1B2C3D4E5F60718293A4B05 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B14 /* launch_logo.png */; };
+		A1B2C3D4E5F60718293A4B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B15 /* Assets.xcassets */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		187E6F445F78611492821E02 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		24A1B0019B8E4E2AA1000001 /* light-rain-loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0039B8E4E2AA1000003 /* light-rain-loop.wav */; };
+		24A1B0029B8E4E2AA1000002 /* night-forest-with-insects.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0049B8E4E2AA1000004 /* night-forest-with-insects.wav */; };
+		24A1B0069B8E4E2AA1000006 /* AmbientAudioBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A1B0079B8E4E2AA1000007 /* AmbientAudioBridge.m */; };
+		24A1B0089B8E4E2AA1000008 /* cat-switch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0099B8E4E2AA1000009 /* cat-switch.wav */; };
+		24A1B00A9B8E4E2AA100000A /* cat-pet-meow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B00B9B8E4E2AA100000B /* cat-pet-meow.wav */; };
+		24A1B00C9B8E4E2AA100000C /* cat-tease-meow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B00D9B8E4E2AA100000D /* cat-tease-meow.wav */; };
+		24A1B00E9B8E4E2AA100000E /* bird-sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B00F9B8E4E2AA100000F /* bird-sound.wav */; };
+		24A1B0109B8E4E2AA1000010 /* cat-tease-meow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0119B8E4E2AA1000011 /* cat-tease-meow.mp3 */; };
+		24A1B0129B8E4E2AA1000012 /* focus-interrupt-hungry.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0139B8E4E2AA1000013 /* focus-interrupt-hungry.wav */; };
+		24A1B0149B8E4E2AA1000014 /* focus-runaway-angry.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0159B8E4E2AA1000015 /* focus-runaway-angry.wav */; };
+		24A1B0169B8E4E2AA1000016 /* focus_lock_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0189B8E4E2AA1000018 /* focus_lock_logo.png */; };
+		24A1B0179B8E4E2AA1000017 /* focus_lock_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1B0199B8E4E2AA1000019 /* focus_lock_logo.png */; };
+		3AD89796C71B053084337B91 /* libPods-FocusMeow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25D749AFC7C96DA263B7D70 /* libPods-FocusMeow.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A1B2C3D4E5F60718293A4B41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1B2C3D4E5F60718293A4B40;
+			remoteInfo = FocusMeowLiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1B2C3D4E5F60718293A4B30 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1B2C3D4E5F60718293A4B01 /* FocusMeowLiveActivityExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F60718293A4B10 /* FocusMeowLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FocusMeowLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B2C3D4E5F60718293A4B11 /* FocusSessionAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FocusSessionAttributes.swift; path = FocusMeow/FocusSessionAttributes.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B12 /* FocusMeowLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FocusMeowLiveActivity.swift; path = FocusMeowLiveActivity/FocusMeowLiveActivity.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = FocusMeowLiveActivity/Info.plist; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B14 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_logo.png; path = FocusMeow/Images.xcassets/LaunchLogo.imageset/launch_logo.png; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = FocusMeowLiveActivity/Assets.xcassets; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* FocusMeow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusMeow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FocusMeow/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FocusMeow/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = FocusMeow/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-FocusMeow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusMeow.debug.xcconfig"; path = "Target Support Files/Pods-FocusMeow/Pods-FocusMeow.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-FocusMeow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusMeow.release.xcconfig"; path = "Target Support Files/Pods-FocusMeow/Pods-FocusMeow.release.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-FocusMeow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FocusMeow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24A1B0039B8E4E2AA1000003 /* light-rain-loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "light-rain-loop.wav"; path = "FocusMeow/Audio/light-rain-loop.wav"; sourceTree = "<group>"; };
+		24A1B0049B8E4E2AA1000004 /* night-forest-with-insects.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "night-forest-with-insects.wav"; path = "FocusMeow/Audio/night-forest-with-insects.wav"; sourceTree = "<group>"; };
+		24A1B0079B8E4E2AA1000007 /* AmbientAudioBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AmbientAudioBridge.m; path = FocusMeow/AmbientAudioBridge.m; sourceTree = "<group>"; };
+		24A1B0099B8E4E2AA1000009 /* cat-switch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cat-switch.wav"; path = "FocusMeow/Audio/cat-switch.wav"; sourceTree = "<group>"; };
+		24A1B00B9B8E4E2AA100000B /* cat-pet-meow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cat-pet-meow.wav"; path = "FocusMeow/Audio/cat-pet-meow.wav"; sourceTree = "<group>"; };
+		24A1B00D9B8E4E2AA100000D /* cat-tease-meow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cat-tease-meow.wav"; path = "FocusMeow/Audio/cat-tease-meow.wav"; sourceTree = "<group>"; };
+		24A1B00F9B8E4E2AA100000F /* bird-sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "bird-sound.wav"; path = "FocusMeow/Audio/bird-sound.wav"; sourceTree = "<group>"; };
+		24A1B0119B8E4E2AA1000011 /* cat-tease-meow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "cat-tease-meow.mp3"; path = "FocusMeow/Audio/cat-tease-meow.mp3"; sourceTree = "<group>"; };
+		24A1B0139B8E4E2AA1000013 /* focus-interrupt-hungry.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "focus-interrupt-hungry.wav"; path = "FocusMeow/Audio/focus-interrupt-hungry.wav"; sourceTree = "<group>"; };
+		24A1B0159B8E4E2AA1000015 /* focus-runaway-angry.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "focus-runaway-angry.wav"; path = "FocusMeow/Audio/focus-runaway-angry.wav"; sourceTree = "<group>"; };
+		24A1B0189B8E4E2AA1000018 /* focus_lock_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = focus_lock_logo.png; path = FocusMeow/focus_lock_logo.png; sourceTree = "<group>"; };
+		24A1B0199B8E4E2AA1000019 /* focus_lock_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = focus_lock_logo.png; path = FocusMeowLiveActivity/focus_lock_logo.png; sourceTree = "<group>"; };
+		3C8CF658B77052B2EB692910 /* Pods-FocusMeow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusMeow.release.xcconfig"; path = "Target Support Files/Pods-FocusMeow/Pods-FocusMeow.release.xcconfig"; sourceTree = "<group>"; };
+		602B2164BB1B6188FC191ACD /* Pods-FocusMeow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusMeow.debug.xcconfig"; path = "Target Support Files/Pods-FocusMeow/Pods-FocusMeow.debug.xcconfig"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = FocusMeow/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FocusMeow/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F25D749AFC7C96DA263B7D70 /* libPods-FocusMeow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FocusMeow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A1B2C3D4E5F60718293A4B32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-FocusMeow.a in Frameworks */,
+				3AD89796C71B053084337B91 /* libPods-FocusMeow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1B2C3D4E5F60718293A4B20 /* FocusMeowLiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718293A4B12 /* FocusMeowLiveActivity.swift */,
+				A1B2C3D4E5F60718293A4B13 /* Info.plist */,
+				A1B2C3D4E5F60718293A4B14 /* launch_logo.png */,
+				A1B2C3D4E5F60718293A4B15 /* Assets.xcassets */,
+				24A1B0199B8E4E2AA1000019 /* focus_lock_logo.png */,
+			);
+			name = FocusMeowLiveActivity;
+			sourceTree = "<group>";
+		};
+		24A1B0059B8E4E2AA1000005 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				24A1B0039B8E4E2AA1000003 /* light-rain-loop.wav */,
+				24A1B0049B8E4E2AA1000004 /* night-forest-with-insects.wav */,
+				24A1B0099B8E4E2AA1000009 /* cat-switch.wav */,
+				24A1B00B9B8E4E2AA100000B /* cat-pet-meow.wav */,
+				24A1B00D9B8E4E2AA100000D /* cat-tease-meow.wav */,
+				24A1B0119B8E4E2AA1000011 /* cat-tease-meow.mp3 */,
+				24A1B0139B8E4E2AA1000013 /* focus-interrupt-hungry.wav */,
+				24A1B0159B8E4E2AA1000015 /* focus-runaway-angry.wav */,
+				24A1B00F9B8E4E2AA100000F /* bird-sound.wav */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* FocusMeow */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				24A1B0189B8E4E2AA1000018 /* focus_lock_logo.png */,
+				24A1B0059B8E4E2AA1000005 /* Audio */,
+				24A1B0079B8E4E2AA1000007 /* AmbientAudioBridge.m */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				A1B2C3D4E5F60718293A4B11 /* FocusSessionAttributes.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
@@ -55,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-FocusMeow.a */,
+				F25D749AFC7C96DA263B7D70 /* libPods-FocusMeow.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -71,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FAE1A68108700A75B9A /* FocusMeow */,
+				A1B2C3D4E5F60718293A4B20 /* FocusMeowLiveActivity */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -85,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* FocusMeow.app */,
+				A1B2C3D4E5F60718293A4B10 /* FocusMeowLiveActivityExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,8 +193,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-FocusMeow.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-FocusMeow.release.xcconfig */,
+				602B2164BB1B6188FC191ACD /* Pods-FocusMeow.debug.xcconfig */,
+				3C8CF658B77052B2EB692910 /* Pods-FocusMeow.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -105,22 +206,41 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FocusMeow" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				C2B88049F541269C4216718F /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
+				A1B2C3D4E5F60718293A4B30 /* Embed App Extensions */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				5493C5F831B3C463869F7CEB /* [CP] Embed Pods Frameworks */,
+				C5F1A686A255850E22C7CE38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A1B2C3D4E5F60718293A4B42 /* PBXTargetDependency */,
 			);
 			name = FocusMeow;
 			productName = FocusMeow;
 			productReference = 13B07F961A680F5B00A75B9A /* FocusMeow.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A1B2C3D4E5F60718293A4B40 /* FocusMeowLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1B2C3D4E5F60718293A4B52 /* Build configuration list for PBXNativeTarget "FocusMeowLiveActivityExtension" */;
+			buildPhases = (
+				A1B2C3D4E5F60718293A4B31 /* Sources */,
+				A1B2C3D4E5F60718293A4B32 /* Frameworks */,
+				A1B2C3D4E5F60718293A4B33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FocusMeowLiveActivityExtension;
+			productName = FocusMeowLiveActivityExtension;
+			productReference = A1B2C3D4E5F60718293A4B10 /* FocusMeowLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -132,6 +252,10 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
+					};
+					A1B2C3D4E5F60718293A4B40 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -149,17 +273,38 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* FocusMeow */,
+				A1B2C3D4E5F60718293A4B40 /* FocusMeowLiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A1B2C3D4E5F60718293A4B33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D4E5F60718293A4B05 /* launch_logo.png in Resources */,
+				A1B2C3D4E5F60718293A4B06 /* Assets.xcassets in Resources */,
+				24A1B0179B8E4E2AA1000017 /* focus_lock_logo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A1B0019B8E4E2AA1000001 /* light-rain-loop.wav in Resources */,
+				24A1B0029B8E4E2AA1000002 /* night-forest-with-insects.wav in Resources */,
+				24A1B0089B8E4E2AA1000008 /* cat-switch.wav in Resources */,
+				24A1B00A9B8E4E2AA100000A /* cat-pet-meow.wav in Resources */,
+				24A1B00C9B8E4E2AA100000C /* cat-tease-meow.wav in Resources */,
+				24A1B0109B8E4E2AA1000010 /* cat-tease-meow.mp3 in Resources */,
+				24A1B0129B8E4E2AA1000012 /* focus-interrupt-hungry.wav in Resources */,
+				24A1B0149B8E4E2AA1000014 /* focus-runaway-angry.wav in Resources */,
+				24A1B00E9B8E4E2AA100000E /* bird-sound.wav in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				24A1B0169B8E4E2AA1000016 /* focus_lock_logo.png in Resources */,
 				187E6F445F78611492821E02 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,7 +328,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"\\\"$WITH_ENVIRONMENT\\\" \\\"$REACT_NATIVE_XCODE\\\"\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		5493C5F831B3C463869F7CEB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -191,20 +336,16 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FocusMeow/Pods-FocusMeow-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FocusMeow/Pods-FocusMeow-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FocusMeow/Pods-FocusMeow-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		C2B88049F541269C4216718F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -226,7 +367,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		C5F1A686A255850E22C7CE38 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -234,13 +375,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FocusMeow/Pods-FocusMeow-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FocusMeow/Pods-FocusMeow-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -249,26 +386,102 @@
 		};
 /* End PBXShellScriptBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A1B2C3D4E5F60718293A4B42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1B2C3D4E5F60718293A4B40 /* FocusMeowLiveActivityExtension */;
+			targetProxy = A1B2C3D4E5F60718293A4B41 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXSourcesBuildPhase section */
+		A1B2C3D4E5F60718293A4B31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D4E5F60718293A4B02 /* FocusMeowLiveActivity.swift in Sources */,
+				A1B2C3D4E5F60718293A4B04 /* FocusSessionAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A1B0069B8E4E2AA1000006 /* AmbientAudioBridge.m in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				A1B2C3D4E5F60718293A4B03 /* FocusSessionAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		A1B2C3D4E5F60718293A4B50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 64GAYFUM92;
+				ENABLE_BITCODE = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FocusMeowLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowapp.liveactivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1B2C3D4E5F60718293A4B51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 64GAYFUM92;
+				ENABLE_BITCODE = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FocusMeowLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowapp.liveactivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-FocusMeow.debug.xcconfig */;
+			baseConfigurationReference = 602B2164BB1B6188FC191ACD /* Pods-FocusMeow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RRATZ9PSNC;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 64GAYFUM92;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FocusMeow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -282,7 +495,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowapp;
 				PRODUCT_NAME = FocusMeow;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -294,12 +507,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-FocusMeow.release.xcconfig */;
+			baseConfigurationReference = 3C8CF658B77052B2EB692910 /* Pods-FocusMeow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RRATZ9PSNC;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 64GAYFUM92;
 				INFOPLIST_FILE = FocusMeow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -312,7 +525,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuan.focusmeowapp;
 				PRODUCT_NAME = FocusMeow;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
@@ -480,6 +693,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1B2C3D4E5F60718293A4B52 /* Build configuration list for PBXNativeTarget "FocusMeowLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B2C3D4E5F60718293A4B50 /* Debug */,
+				A1B2C3D4E5F60718293A4B51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FocusMeow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

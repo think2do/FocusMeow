@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusMeow 核心框架 + PRD</title>
+  <style>
+    :root {
+      --bg: #f7f2e8;
+      --bg-soft: #fbf8f1;
+      --paper: rgba(255, 252, 247, 0.86);
+      --paper-strong: #fffdf9;
+      --line: rgba(124, 80, 17, 0.14);
+      --line-strong: rgba(124, 80, 17, 0.28);
+      --text: #2e2317;
+      --muted: #756350;
+      --primary: #9a5600;
+      --primary-soft: #f6d7ad;
+      --accent: #d8705b;
+      --accent-soft: #f7ddd5;
+      --green: #4d8d64;
+      --gold: #d68a18;
+      --shadow: 0 20px 60px rgba(117, 85, 41, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1260px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 214, 153, 0.38), transparent 26%),
+        radial-gradient(circle at 85% 10%, rgba(232, 160, 125, 0.18), transparent 20%),
+        linear-gradient(180deg, #f8f4ea 0%, #f3ecd9 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px 20px 80px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 18px 30px 16px;
+      border: 1px solid var(--line);
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 223, 185, 0.72), transparent 32%),
+        linear-gradient(135deg, rgba(255, 251, 246, 0.92), rgba(249, 240, 223, 0.94));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -100px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 194, 108, 0.3), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: none;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(154, 86, 0, 0.12);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand-mark {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(154, 86, 0, 0.14);
+      box-shadow:
+        0 6px 18px rgba(154, 86, 0, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+      background: #fff7eb;
+    }
+
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+    }
+
+    .hero p {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 17px;
+      margin: 24px 0 0;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      backdrop-filter: blur(6px);
+    }
+
+    .panel h2,
+    .section h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .panel p,
+    .section p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(154, 86, 0, 0.1);
+    }
+
+    .summary-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #fff3df, #f8dcb7);
+      font-size: 24px;
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .mini-kpi {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .mini-kpi .card {
+      padding: 16px;
+      background: rgba(255,255,255,0.78);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(154, 86, 0, 0.1);
+    }
+
+    .mini-kpi .num {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .hero-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 0;
+    }
+
+    .hero-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-side {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-brand-wrap {
+      margin-bottom: 28px;
+    }
+
+    .hero-copy-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .value-card {
+      position: relative;
+      padding: 18px 22px;
+      border-radius: 30px;
+      background:
+        linear-gradient(155deg, rgba(255,255,255,0.9), rgba(250, 239, 220, 0.88));
+      border: 1px solid rgba(154, 86, 0, 0.12);
+      box-shadow: 0 18px 48px rgba(123, 93, 50, 0.1);
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 210, 145, 0.35), transparent 68%);
+      pointer-events: none;
+    }
+
+    .value-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(154, 86, 0, 0.08);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .value-title {
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin: 0 0 8px;
+      max-width: 14em;
+    }
+
+    .value-sub {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .value-points {
+      display: grid;
+      gap: 10px;
+    }
+
+    .value-point {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(154, 86, 0, 0.1);
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      background: linear-gradient(135deg, #fff0d7, #f8dbad);
+    }
+
+    .value-point strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .value-point span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .nav {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 28px;
+      padding: 12px;
+      background: rgba(255, 252, 247, 0.74);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .nav a:hover {
+      border-color: var(--line-strong);
+      color: var(--text);
+    }
+
+    .section {
+      margin-top: 42px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .architecture-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .arch-card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(123, 93, 50, 0.08);
+    }
+
+    .arch-card .arch-no {
+      display: inline-flex;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .arch-card h3,
+    .block h3,
+    .story-card h3,
+    .metric-card h3,
+    .flow-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .arch-card ul,
+    .block ul,
+    .story-card ul,
+    .metric-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .flow-shell {
+      overflow: auto;
+      padding: 6px 2px 12px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(180px, 1fr));
+      gap: 14px;
+      min-width: 1120px;
+      align-items: stretch;
+    }
+
+    .flow-card {
+      position: relative;
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .flow-card::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .flow-card:last-child::after {
+      display: none;
+    }
+
+    .flow-card span {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(154, 86, 0, 0.08);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .function-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .block {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .block-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .sub-block {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(124, 80, 17, 0.18);
+    }
+
+    .sub-block h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .sub-block p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .rule-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .rule {
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(124, 80, 17, 0.1);
+    }
+
+    .story-grid,
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .story-card,
+    .metric-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .story-card .type,
+    .metric-card .type {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      margin-bottom: 10px;
+    }
+
+    .metric-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .metric {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(124, 80, 17, 0.1);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .architecture-grid,
+      .story-grid,
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        padding: 18px 18px 14px;
+      }
+
+      .hero-top,
+      .section-head,
+      .block-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-grid,
+      .hero-main,
+      .architecture-grid,
+      .function-grid,
+      .story-grid,
+      .metric-grid,
+      .mini-kpi {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-main">
+        <div class="hero-copy">
+          <div class="hero-copy-main">
+            <div class="hero-brand-wrap">
+              <div class="brand">
+                <div class="brand-mark">
+                  <img src="./assets/focusmeow-app-icon.jpg" alt="FocusMeow app icon" />
+                </div>
+                <div>
+                  <div style="font-size: 22px; font-weight: 900; letter-spacing: -0.02em;">FocusMeow / 专注喵</div>
+                  <div style="font-size: 14px; color: var(--muted); margin-top: 4px;">Core Framework + PRD View</div>
+                </div>
+              </div>
+            </div>
+
+            <h1>专注时有猫咪陪伴<br />成长时有科学建议</h1>
+            <p>
+              这份网页不是把 PRD 原文搬进浏览器，而是把 FocusMeow 的核心产品框架、主功能闭环、
+              模块职责和关键业务规则做成更适合演示、汇报和继续扩展的可视化版本。
+            </p>
+          </div>
+
+          <div class="chip-row">
+            <div class="chip">专注工具</div>
+            <div class="chip">猫咪养成</div>
+            <div class="chip">图鉴收集</div>
+            <div class="chip">AI 谈心</div>
+            <div class="chip">AI 分析</div>
+            <div class="chip">成长记录</div>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <section class="value-card">
+            <div class="value-badge">核心价值主张</div>
+            <div class="value-title">把专注变成一段被陪伴、被理解、能成长的体验</div>
+            <div class="value-sub">FocusMeow 不是只记录时间，而是在用户每一次进入专注状态时，同时提供情绪支持、正向反馈和行为建议。</div>
+
+            <div class="value-points">
+              <div class="value-point">
+                <div class="value-icon">🐾</div>
+                <div>
+                  <strong>陪伴感</strong>
+                  <span>猫咪陪你专注、陪你聊天，让坚持不再只是一个人硬撑。</span>
+                </div>
+              </div>
+              <div class="value-point">
+                <div class="value-icon">📈</div>
+                <div>
+                  <strong>成长感</strong>
+                  <span>专注会转化成 XP、等级、新猫和图鉴进度，形成长期积累。</span>
+                </div>
+              </div>
+              <div class="value-point">
+                <div class="value-icon">🧠</div>
+                <div>
+                  <strong>科学感</strong>
+                  <span>AI 根据专注历史给出时段、时长和趋势建议，帮助用户更高效地变好。</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <section class="panel">
+          <h2>一句话定位</h2>
+          <p>一款用猫咪陪伴、成长奖励和 AI 反馈来驱动长期专注习惯形成的情感化番茄钟产品。</p>
+
+          <div class="summary-list">
+            <div class="summary-item">
+              <div class="summary-icon">⏱</div>
+              <div>
+                <strong>功能层</strong>
+                提供可启动、可完成、可中断判定的专注计时能力。
+              </div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-icon">🐾</div>
+              <div>
+                <strong>奖励层</strong>
+                把专注结果映射为猫咪 XP、升级、掉落新猫和主题解锁。
+              </div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-icon">💬</div>
+              <div>
+                <strong>情感层</strong>
+                让用户不是在“完成任务”，而是在“陪自己的猫成长”。
+              </div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-icon">🧠</div>
+              <div>
+                <strong>认知层</strong>
+                用 AI 分析解释用户的专注数据，并给出轻量可执行建议。
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>产品北极星</h2>
+          <p>核心不是“多一个番茄钟”，而是建立一套行为、情感和成长都能被持续感知的专注系统。</p>
+
+          <div class="mini-kpi">
+            <div class="card">
+              <div class="num">完成率</div>
+              <div>用户是否能顺利完成单次专注</div>
+            </div>
+            <div class="card">
+              <div class="num">留存</div>
+              <div>猫咪养成是否推动持续回访</div>
+            </div>
+            <div class="card">
+              <div class="num">陪伴感</div>
+              <div>聊天与世界观是否形成情绪黏性</div>
+            </div>
+            <div class="card">
+              <div class="num">分析感</div>
+              <div>用户是否感知到“被理解”与“被指导”</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <nav class="nav">
+      <a href="#framework">核心框架</a>
+      <a href="#loop">用户闭环</a>
+      <a href="#modules">功能架构</a>
+      <a href="#stories">用户故事</a>
+      <a href="#rules">关键规则</a>
+      <a href="#metrics">指标建议</a>
+    </nav>
+
+    <section id="framework" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Core Framework</div>
+          <h2>产品核心框架</h2>
+        </div>
+        <p>FocusMeow 的底层不是单一功能结构，而是四层叠加的产品骨架。</p>
+      </div>
+
+      <div class="architecture-grid">
+        <article class="arch-card">
+          <div class="arch-no">01</div>
+          <h3>专注工具层</h3>
+          <p>承载最基础的任务执行与时间管理能力，保证产品在效率维度可用。</p>
+          <ul>
+            <li>选择陪伴猫咪</li>
+            <li>选择或自定义专注时长</li>
+            <li>倒计时与结果判定</li>
+            <li>中断、离开前台的行为识别</li>
+          </ul>
+        </article>
+
+        <article class="arch-card">
+          <div class="arch-no">02</div>
+          <h3>游戏养成层</h3>
+          <p>把抽象的专注转成具体的奖励、升级、收集和惩罚，构成持续驱动力。</p>
+          <ul>
+            <li>专注完成获得 XP</li>
+            <li>每 2 次专注掉落新猫</li>
+            <li>时长越高，稀有猫概率越高</li>
+            <li>连续中断会造成挨饿与死亡</li>
+          </ul>
+        </article>
+
+        <article class="arch-card">
+          <div class="arch-no">03</div>
+          <h3>情感陪伴层</h3>
+          <p>让用户和“自己的猫”形成情绪连接，降低传统效率产品的机械感。</p>
+          <ul>
+            <li>首页猫咪王国</li>
+            <li>猫咪展示位与主题切换</li>
+            <li>AI 谈心</li>
+            <li>单猫独立聊天记忆</li>
+          </ul>
+        </article>
+
+        <article class="arch-card">
+          <div class="arch-no">04</div>
+          <h3>智能解释层</h3>
+          <p>把数据结果翻译成用户能理解的结论和建议，形成“教练式反馈”。</p>
+          <ul>
+            <li>最佳专注时段</li>
+            <li>最佳专注时长</li>
+            <li>趋势对比</li>
+            <li>连续专注与习惯建议</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="loop" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">User Loop</div>
+          <h2>核心用户闭环</h2>
+        </div>
+        <p>这是产品最重要的路径：行为输入、情绪反馈、成长沉淀和再次启动。</p>
+      </div>
+
+      <div class="flow-shell">
+        <div class="flow">
+          <article class="flow-card">
+            <span>入口</span>
+            <h3>进入首页</h3>
+            <p>用户看到自己的猫咪王国、累计数据和距离下一只猫的进度。</p>
+          </article>
+          <article class="flow-card">
+            <span>决策</span>
+            <h3>选择猫 + 时长</h3>
+            <p>从“我要开始做事”变成“我要带一只猫一起开始专注”。</p>
+          </article>
+          <article class="flow-card">
+            <span>执行</span>
+            <h3>专注中</h3>
+            <p>猫咪在进食，离开会被警告，放弃会让用户感受到情绪成本。</p>
+          </article>
+          <article class="flow-card">
+            <span>反馈</span>
+            <h3>成功 / 中断 / 死亡</h3>
+            <p>即时看到鼓励、XP、掉落结果，或挨饿与死亡反馈。</p>
+          </article>
+          <article class="flow-card">
+            <span>沉淀</span>
+            <h3>图鉴 / 记录 / AI</h3>
+            <p>用户回看成长、收集进度，并在 AI 页得到对行为的解释。</p>
+          </article>
+          <article class="flow-card">
+            <span>回流</span>
+            <h3>再次启动专注</h3>
+            <p>通过养成目标和陪伴关系，推动用户继续下一轮专注行为。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Modules</div>
+          <h2>功能架构 PRD</h2>
+        </div>
+        <p>以下按正式 PRD 方式描述各模块目标、作用和关键业务规则。</p>
+      </div>
+
+      <div class="function-grid">
+        <article class="block">
+          <div class="block-top">
+            <h3>01. 账号系统</h3>
+            <div class="pill">登录 / 注册 / 游客</div>
+          </div>
+          <p>负责身份进入、登录态恢复与低门槛试用，是转化闭环的前置模块。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>欢迎页、登录、注册、验证码、忘记密码、重置密码</li>
+              <li>游客模式直接进入</li>
+              <li>登录态本地持久化</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">注册需邮箱 + 密码 + 昵称</div>
+            <div class="rule">邮箱验证码验证注册</div>
+            <div class="rule">游客可体验但能力受限</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>02. 首页 / 猫咪王国</h3>
+            <div class="pill">主入口</div>
+          </div>
+          <p>负责品牌感、资产展示和任务启动，是用户每天回到产品时最先看到的“世界”。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>品牌头部、累计数据、猫咪王国展示位</li>
+              <li>主题切换、规则帮助、截图分享</li>
+              <li>开始专注主 CTA</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">首页最多展示 6 个猫咪位</div>
+            <div class="rule">支持固定展示喜欢的猫</div>
+            <div class="rule">主题按拥有猫数解锁</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>03. 专注系统</h3>
+            <div class="pill">行为引擎</div>
+          </div>
+          <p>负责专注会话的启动、执行、倒计时和结果判定，是所有成长数据的源头。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>选择猫咪、时长预设、自定义时长</li>
+              <li>倒计时页面、专注态沉浸展示</li>
+              <li>放弃确认、前后台切换检测</li>
+              <li>成功 / 中断 / 死亡结果页</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">未选猫不可开始专注</div>
+            <div class="rule">完成后写入 focusHistory</div>
+            <div class="rule">中断会触发负反馈</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>04. 猫咪养成系统</h3>
+            <div class="pill">长期动力</div>
+          </div>
+          <p>把专注行为转译为成长资产，让每次专注都有长期可累计结果。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>初始猫、XP、等级、存活状态</li>
+              <li>死亡状态、复活机制、陪伴时长</li>
+              <li>稀有与普通分类</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">成功专注给当前猫加 XP</div>
+            <div class="rule">XP 达阈值后升级</div>
+            <div class="rule">初始猫具备保底复活</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>05. 猫咪掉落与图鉴</h3>
+            <div class="pill">收集系统</div>
+          </div>
+          <p>通过短周期奖励维持动力，并用图鉴作为长期目标板。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>每 2 次专注获得新猫</li>
+              <li>普通猫 / 稀有猫随机掉落</li>
+              <li>普通图鉴与稀有图鉴</li>
+              <li>收集进度展示</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">累计时长越高，稀有概率越高</div>
+            <div class="rule">新品种自动点亮图鉴</div>
+            <div class="rule">未解锁品种以隐藏状态展示</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>06. 成长记录系统</h3>
+            <div class="pill">资产回看</div>
+          </div>
+          <p>帮助用户明确感知自己的总投入、单猫成长和当前养成规模。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>总完成次数、总专注时长、猫咪总数、最高等级</li>
+              <li>全部猫咪列表、经验条、状态和陪伴时长</li>
+              <li>死亡猫保留展示，支持部分丢弃</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">初始猫不可丢弃</div>
+            <div class="rule">死亡猫保留历史痕迹</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>07. AI 谈心系统</h3>
+            <div class="pill">情感陪伴</div>
+          </div>
+          <p>增强猫咪人格感，让用户能与不同猫建立关系，而不是只和系统聊天。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>按猫切换对话对象</li>
+              <li>单猫聊天历史与上下文</li>
+              <li>历史保存、新建对话、主题摘要</li>
+              <li>消息复制 / 撤回</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">历史保存上限为 5 只猫</div>
+            <div class="rule">超过上限需替换</div>
+            <div class="rule">游客聊天次数有限</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>08. AI 分析系统</h3>
+            <div class="pill">教练反馈</div>
+          </div>
+          <p>基于专注历史生成最佳时段、最佳时长、趋势和建议，增加“科学感”。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>今日 / 本周 / 本月报告</li>
+              <li>完成率、分钟数、趋势对比</li>
+              <li>最佳时段、最佳时长、连续专注天数</li>
+              <li>建议模块</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">当前以本地规则分析为主</div>
+            <div class="rule">重点是可解释反馈而非长文本生成</div>
+          </div>
+        </article>
+
+        <article class="block">
+          <div class="block-top">
+            <h3>09. 设置与资料系统</h3>
+            <div class="pill">账号与偏好</div>
+          </div>
+          <p>支持头像、昵称、个人信息、语言和反馈配置，补足用户身份感和可管理性。</p>
+          <div class="sub-block">
+            <h4>核心功能</h4>
+            <ul>
+              <li>头像选择 / 拍照 / 相册上传</li>
+              <li>昵称、邮箱、密码管理入口</li>
+              <li>生日、性别、身份、兴趣等个人信息</li>
+              <li>语言、反馈、条款、隐私、版本</li>
+            </ul>
+          </div>
+          <div class="rule-list">
+            <div class="rule">个人信息用于增强“猫更懂你”的感觉</div>
+            <div class="rule">设置承担注册转化和账号管理职责</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="stories" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">User Stories</div>
+          <h2>关键用户故事</h2>
+        </div>
+        <p>以下故事决定了 FocusMeow 是否能成立，而不是是否“功能齐全”。</p>
+      </div>
+
+      <div class="story-grid">
+        <article class="story-card">
+          <div class="type">新用户</div>
+          <h3>我想低门槛试用</h3>
+          <p>作为第一次接触产品的用户，我希望不注册也能快速开始体验，以便判断这款产品是否值得长期使用。</p>
+          <ul>
+            <li>需要游客模式</li>
+            <li>需要保留核心体验</li>
+            <li>需要通过限制推动后续注册</li>
+          </ul>
+        </article>
+
+        <article class="story-card">
+          <div class="type">专注用户</div>
+          <h3>我想更容易坚持</h3>
+          <p>作为想培养专注习惯的用户，我希望完成一次专注后能获得明确回报，而不是只是看到一个结束提示。</p>
+          <ul>
+            <li>需要即时正反馈</li>
+            <li>需要短周期成长奖励</li>
+            <li>需要失败时有感知成本</li>
+          </ul>
+        </article>
+
+        <article class="story-card">
+          <div class="type">养成用户</div>
+          <h3>我想积累自己的猫咪资产</h3>
+          <p>作为喜欢收集和养成的用户，我希望看到自己拥有的猫越来越多、越来越强，并能展示它们。</p>
+          <ul>
+            <li>需要图鉴和稀有体系</li>
+            <li>需要首页王国展示</li>
+            <li>需要等级和陪伴时长沉淀</li>
+          </ul>
+        </article>
+
+        <article class="story-card">
+          <div class="type">情感用户</div>
+          <h3>我希望和猫建立关系</h3>
+          <p>作为偏情绪型使用者，我希望我的猫不只是奖励素材，而是能和我持续交流、陪伴我的角色。</p>
+          <ul>
+            <li>需要 AI 谈心</li>
+            <li>需要按猫切换对话对象</li>
+            <li>需要独立聊天记录</li>
+          </ul>
+        </article>
+
+        <article class="story-card">
+          <div class="type">反思用户</div>
+          <h3>我想知道如何更高效</h3>
+          <p>作为有提升意愿的用户，我希望知道自己在什么时段更高效、适合什么时长，以及最近有没有进步。</p>
+          <ul>
+            <li>需要时段分析</li>
+            <li>需要时长分析</li>
+            <li>需要趋势和建议</li>
+          </ul>
+        </article>
+
+        <article class="story-card">
+          <div class="type">产品目标</div>
+          <h3>我希望形成长期留存</h3>
+          <p>作为产品本身，FocusMeow 需要让用户因为“还有猫没收集、还有王国想经营、还有数据想变好”而持续回来。</p>
+          <ul>
+            <li>用专注驱动掉落</li>
+            <li>用掉落驱动回访</li>
+            <li>用 AI 和陪伴延长生命周期</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="rules" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Key Rules</div>
+          <h2>关键业务规则</h2>
+        </div>
+        <p>这些规则共同定义了产品的激励与惩罚逻辑，是玩法成立的基础。</p>
+      </div>
+
+      <div class="function-grid">
+        <article class="block">
+          <h3>专注规则</h3>
+          <ul>
+            <li>用户需先选择一只猫后才能开始专注。</li>
+            <li>专注完成会记录完成状态、日期、起始小时、时长和计划时长。</li>
+            <li>专注中主动放弃或离开前台会触发负反馈。</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h3>成长规则</h3>
+          <ul>
+            <li>成功专注后，当前陪伴猫获得固定 XP。</li>
+            <li>XP 达到阈值后升级，等级随累计 XP 增长。</li>
+            <li>每累计 2 次成功专注会掉落 1 只新猫。</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h3>稀有掉落规则</h3>
+          <ul>
+            <li>两次专注的累计时长影响稀有猫概率。</li>
+            <li>时长越高，稀有掉落概率越高。</li>
+            <li>稀有类型当前包括情侣猫、彩虹猫、黑猫。</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h3>惩罚规则</h3>
+          <ul>
+            <li>中断专注会让猫挨饿。</li>
+            <li>连续中断达到阈值会导致当前猫死亡。</li>
+            <li>初始猫拥有保底复活机制，降低早期挫败感。</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h3>聊天规则</h3>
+          <ul>
+            <li>每只猫可作为独立聊天对象。</li>
+            <li>聊天历史保存数量有上限，超过上限需替换。</li>
+            <li>聊天轮次达到一定程度后可生成主题摘要。</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h3>游客规则</h3>
+          <ul>
+            <li>游客可体验核心功能，但专注、聊天、AI 分析次数受限。</li>
+            <li>游客模式承担“试用”而非“长期资产沉淀”职责。</li>
+            <li>正式注册用于承接长期记录与留存。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="metrics" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Metrics</div>
+          <h2>核心指标建议</h2>
+        </div>
+        <p>如果后续做更正式的产品运营，这些指标最能反映产品是否真正跑起来。</p>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card">
+          <div class="type">使用</div>
+          <h3>基础活跃与完成</h3>
+          <div class="metric-list">
+            <div class="metric">
+              <strong>DAU / WAU</strong>
+              判断产品是否形成稳定回访。
+            </div>
+            <div class="metric">
+              <strong>人均专注次数</strong>
+              判断产品是否被真正用于执行专注。
+            </div>
+            <div class="metric">
+              <strong>专注完成率</strong>
+              判断玩法设计是否帮助用户坚持而不是劝退。
+            </div>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="type">养成</div>
+          <h3>成长系统健康度</h3>
+          <div class="metric-list">
+            <div class="metric">
+              <strong>人均拥有猫咪数</strong>
+              判断用户是否持续进入掉落循环。
+            </div>
+            <div class="metric">
+              <strong>图鉴点亮率</strong>
+              判断收集目标是否有持续吸引力。
+            </div>
+            <div class="metric">
+              <strong>主题解锁率</strong>
+              判断猫咪资产是否进一步转成展示欲望。
+            </div>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="type">AI</div>
+          <h3>情感与解释层使用度</h3>
+          <div class="metric-list">
+            <div class="metric">
+              <strong>聊天页打开率</strong>
+              判断猫咪人格化是否成立。
+            </div>
+            <div class="metric">
+              <strong>人均消息数</strong>
+              判断 AI 陪伴是否形成真实互动。
+            </div>
+            <div class="metric">
+              <strong>分析页回访率</strong>
+              判断 AI 建议是否被视为有价值。
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

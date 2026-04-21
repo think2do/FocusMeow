@@ -10,13 +10,20 @@ const IDLE_HOLD = 10000; // sit-2 hold at end = 10s
 const IDLE_WAIT = 10000; // wait before first wag = 10s
 const HAPPY_DURATION = 1000; // happy flash = 1s
 
-// 部分品种图片需要放大以填满画面
-const BREED_SCALE = { devon: 1.35, persian: 1.35, maine: 1.25 };
-
-export default function PngCatAvatar({ breedId = 'orange', state = 'idle', size = 120, rounded = 0 }) {
+export default function PngCatAvatar({ breedId = 'orange', state = 'idle', size = 120, rounded = 0, displayMode = 'default' }) {
   const imgs = CAT_IMAGES[breedId] || CAT_IMAGES.orange;
-  const scale = BREED_SCALE[breedId] || 1.0;
-  const imgSize = size * scale;
+  const compact = displayMode === 'compact';
+  // Default mode protects the large focus/result cards from any clipping.
+  // Compact mode is for small slots like Home/Chat/Collection where we want the cat to look larger
+  // while still staying visually inside the rounded frame.
+  const inset = rounded
+    ? compact
+      ? Math.max(1, Math.round(size * 0.02))
+      : Math.max(2, Math.round(size * 0.04))
+    : 0;
+  const baseSize = Math.max(1, size - inset * 2);
+  const compactScale = compact ? (breedId === 'persian' ? 1.2 : 1.12) : 1;
+  const imgSize = Math.round(baseSize * compactScale);
   const [frame, setFrame] = useState(imgs.sit1);
   const timersRef = useRef([]);
   const mountedRef = useRef(true);
@@ -40,7 +47,7 @@ export default function PngCatAvatar({ breedId = 'orange', state = 'idle', size 
       mountedRef.current = false;
       clearAllTimers();
     };
-  }, []);
+  }, [clearAllTimers]);
 
   // ── IDLE: sit-1 default, tail wag every 10s ──
   const startIdle = useCallback(() => {
@@ -106,6 +113,11 @@ export default function PngCatAvatar({ breedId = 'orange', state = 'idle', size 
         setFrame(imgs.eat5);
         break;
       case 'hungry':
+        setFrame(imgs.hungry || imgs.die);
+        break;
+      case 'left':
+        setFrame(imgs.left || imgs.hungry || imgs.sit2 || imgs.sit1);
+        break;
       case 'dead':
         setFrame(imgs.die);
         break;
@@ -114,10 +126,10 @@ export default function PngCatAvatar({ breedId = 'orange', state = 'idle', size 
     }
 
     return clearAllTimers;
-  }, [state, imgs]);
+  }, [clearAllTimers, imgs, schedule, startEating, startIdle, state]);
 
   return (
-    <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', borderRadius: rounded, overflow: rounded ? 'hidden' : 'visible' }}>
+    <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', borderRadius: rounded, overflow: rounded ? 'hidden' : 'visible', padding: inset }}>
       <Image source={frame} style={{ width: imgSize, height: imgSize, backgroundColor: 'transparent' }} resizeMode="contain" />
     </View>
   );

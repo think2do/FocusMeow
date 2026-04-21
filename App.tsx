@@ -4,16 +4,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text, View, Image, StyleSheet, Animated, Easing, Alert, TextInput, TouchableOpacity } from 'react-native';
+import Svg, { Circle, Path, Rect, Line } from 'react-native-svg';
+import { APP_FONT_FAMILY } from './src/utils/appFont';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sendVerificationCode, verifyCode, resetPassword as apiResetPassword } from './src/services/authApi';
 import useGameState from './src/hooks/useGameState';
 import { T } from './src/i18n/translations';
-import { C } from './src/utils/theme';
+import { C, applyTheme } from './src/utils/theme';
 import HomeScreen from './src/screens/HomeScreen';
 import SelectScreen from './src/screens/SelectScreen';
 import CollectionScreen from './src/screens/CollectionScreen';
-import StatsScreen from './src/screens/StatsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import AIScreen from './src/screens/AIScreen';
 import ChatScreen from './src/screens/ChatScreen';
@@ -22,13 +23,267 @@ export const GameContext = createContext(null);
 export const useGame = () => useContext(GameContext);
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
-function TI({ emoji }) { return <Text style={{ fontSize: 18 }}>{emoji}</Text>; }
+const TAB_BAR_HORIZONTAL_PADDING = 20;
+const TAB_PILL_WIDTH = 74;
+const TAB_PILL_HEIGHT = 52;
+
+function TabIcon({ type, focused, label }) {
+  const stroke = focused ? C.tabActive : C.tabInactive;
+  const fill = focused ? C.activeTint : 'transparent';
+  const common = { stroke, strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' };
+
+  const icon = (() => {
+    switch (type) {
+      case 'home':
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Path d="M4.5 10.5 12 4l7.5 6.5" fill="none" {...common} />
+            <Path d="M6.5 9.5V19h11V9.5" fill={fill} {...common} />
+            <Rect x="10" y="13" width="4" height="6" rx="1.2" fill="none" {...common} />
+          </Svg>
+        );
+      case 'chat':
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Path d="M6 7.5h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H12l-4.2 3v-3H6a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3Z" fill={fill} {...common} />
+            <Circle cx="9" cy="12" r="0.9" fill={stroke} />
+            <Circle cx="12" cy="12" r="0.9" fill={stroke} />
+            <Circle cx="15" cy="12" r="0.9" fill={stroke} />
+          </Svg>
+        );
+      case 'collection':
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Rect x="5" y="4" width="14" height="16" rx="2.4" fill={fill} {...common} />
+            <Line x1="9" y1="4" x2="9" y2="20" {...common} />
+            <Line x1="11.5" y1="8" x2="16" y2="8" {...common} />
+            <Line x1="11.5" y1="11" x2="16" y2="11" {...common} />
+          </Svg>
+        );
+      case 'ai':
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Rect x="6" y="7" width="12" height="10" rx="4" fill={fill} {...common} />
+            <Line x1="12" y1="4" x2="12" y2="7" {...common} />
+            <Circle cx="10" cy="12" r="1" fill={stroke} />
+            <Circle cx="14" cy="12" r="1" fill={stroke} />
+            <Path d="M9.5 15c.8.6 1.6.9 2.5.9s1.7-.3 2.5-.9" fill="none" {...common} />
+          </Svg>
+        );
+      case 'stats':
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Line x1="5" y1="19" x2="19" y2="19" {...common} />
+            <Rect x="6.5" y="12.5" width="2.8" height="6.5" rx="1.2" fill={focused ? C.primaryContainer : fill} {...common} />
+            <Rect x="10.6" y="9.5" width="2.8" height="9.5" rx="1.2" fill={fill} {...common} />
+            <Rect x="14.7" y="6.5" width="2.8" height="12.5" rx="1.2" fill={fill} {...common} />
+          </Svg>
+        );
+      case 'settings':
+      default:
+        return (
+          <Svg width={22} height={22} viewBox="0 0 24 24">
+            <Circle cx="12" cy="12" r="3.1" fill={fill} {...common} />
+            <Path d="M12 4.5v2.1M12 17.4v2.1M19.5 12h-2.1M6.6 12H4.5M17.3 6.7l-1.5 1.5M8.2 15.8l-1.5 1.5M17.3 17.3l-1.5-1.5M8.2 8.2 6.7 6.7" fill="none" {...common} />
+          </Svg>
+        );
+    }
+  })();
+
+  return (
+    <View style={tabIconStyles.wrap}>
+      <View style={tabIconStyles.inner}>
+        {icon}
+        <Text style={[tabIconStyles.label, focused ? tabIconStyles.labelActive : tabIconStyles.labelIdle, { color: stroke }]}>{label}</Text>
+      </View>
+    </View>
+  );
+}
+
+function FluidTabBar({ state, descriptors, navigation }) {
+  const [barWidth, setBarWidth] = useState(0);
+  const pillX = useRef(new Animated.Value(0)).current;
+  const pillStretch = useRef(new Animated.Value(1)).current;
+  const itemCount = state.routes.length;
+  const contentWidth = Math.max(0, barWidth - (TAB_BAR_HORIZONTAL_PADDING * 2));
+  const itemWidth = contentWidth > 0 ? contentWidth / itemCount : 0;
+
+  useEffect(() => {
+    if (!itemWidth) return;
+    const nextX = TAB_BAR_HORIZONTAL_PADDING
+      + (itemWidth * state.index)
+      + ((itemWidth - TAB_PILL_WIDTH) / 2);
+    Animated.parallel([
+      Animated.spring(pillX, {
+        toValue: nextX,
+        stiffness: 170,
+        damping: 22,
+        mass: 0.82,
+        useNativeDriver: true,
+      }),
+      Animated.sequence([
+        Animated.timing(pillStretch, {
+          toValue: 1.12,
+          duration: 120,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.spring(pillStretch, {
+          toValue: 1,
+          stiffness: 150,
+          damping: 18,
+          mass: 0.75,
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start();
+  }, [itemWidth, pillStretch, pillX, state.index]);
+
+  return (
+    <View style={fluidTabStyles.shell}>
+      <View
+        style={[
+          fluidTabStyles.bar,
+          {
+            backgroundColor: C.tabBar,
+            borderTopColor: C.border,
+          },
+        ]}
+        onLayout={event => setBarWidth(event.nativeEvent.layout.width)}
+      >
+        {barWidth > 0 ? (
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              fluidTabStyles.pill,
+              {
+                width: TAB_PILL_WIDTH,
+                backgroundColor: C.primaryFixed,
+                shadowColor: C.primary,
+                transform: [
+                  { translateX: pillX },
+                  { scaleX: pillStretch },
+                ],
+              },
+            ]}
+          />
+        ) : null}
+
+        {state.routes.map((route, index) => {
+          const focused = state.index === index;
+          const { options } = descriptors[route.key];
+          const label = options.tabLabel || options.title || route.name;
+          const type = options.tabType || route.name.toLowerCase();
+
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+
+            if (!focused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
+          };
+
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: route.key,
+            });
+          };
+
+          return (
+            <TouchableOpacity
+              key={route.key}
+              accessibilityRole="button"
+              accessibilityState={focused ? { selected: true } : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarButtonTestID}
+              activeOpacity={0.82}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              style={[fluidTabStyles.item, itemWidth ? { width: itemWidth } : null]}
+            >
+              <TabIcon type={type} focused={focused} label={label} />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
+  );
+}
+
+const tabIconStyles = StyleSheet.create({
+  wrap: {
+    width: 72,
+    height: TAB_PILL_HEIGHT,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    marginTop: 4,
+    fontSize: 10,
+    lineHeight: 12,
+    letterSpacing: 0.2,
+  },
+  labelActive: {
+    fontWeight: '800',
+  },
+  labelIdle: {
+    fontWeight: '700',
+  },
+});
+
+const fluidTabStyles = StyleSheet.create({
+  shell: {
+    height: 94,
+  },
+  bar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    position: 'relative',
+    paddingHorizontal: TAB_BAR_HORIZONTAL_PADDING,
+    paddingTop: 15,
+    paddingBottom: 14,
+    borderTopWidth: 1,
+  },
+  pill: {
+    position: 'absolute',
+    top: 15,
+    height: TAB_PILL_HEIGHT,
+    borderRadius: 999,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+  },
+  item: {
+    height: TAB_PILL_HEIGHT,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+  },
+});
 
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="HomeMain" component={HomeScreen} />
-      <HomeStack.Screen name="Select" component={SelectScreen} options={{ animation: 'slide_from_bottom' }} />
+      <HomeStack.Screen
+        name="Select"
+        component={SelectScreen}
+        options={{
+          animation: 'fade_from_bottom',
+          gestureEnabled: false,
+          fullScreenGestureEnabled: false,
+        }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -120,7 +375,7 @@ function WelcomeScreen({ onLogin, onGuest, lang }) {
     }
     setLoading(true);
     try {
-      await sendVerificationCode(resetEmail.trim(), 'reset');
+      await sendVerificationCode(resetEmail.trim(), 'forgot');
       setStep('verify-reset');
       startCountdown();
     } catch (e) { Alert.alert(zh ? '发送失败' : 'Send Failed', e.message); }
@@ -131,8 +386,8 @@ function WelcomeScreen({ onLogin, onGuest, lang }) {
     if (resetOtp.length !== 6) { Alert.alert(zh ? '提示' : 'Tip', zh ? '请输入 6 位验证码' : 'Enter 6-digit code'); return; }
     setLoading(true);
     try {
-      const { verifiedToken } = await verifyCode(resetEmail.trim(), resetOtp, 'reset');
-      setResetToken(verifiedToken);
+      const { verifiedToken } = await verifyCode(resetEmail.trim(), resetOtp, 'forgot');
+      setResetToken(verifiedToken || '');
       setStep('new-password');
     } catch (e) { Alert.alert(zh ? '失败' : 'Failed', e.message); }
     finally { setLoading(false); }
@@ -147,7 +402,15 @@ function WelcomeScreen({ onLogin, onGuest, lang }) {
     }
     setLoading(true);
     try {
-      await apiResetPassword(resetToken, newPassword);
+      await apiResetPassword({
+        verifiedToken: resetToken,
+        email: resetEmail.trim(),
+        code: resetOtp,
+        newPassword,
+      });
+      await AsyncStorage.removeItem('@focusmeow_remember');
+      setEmail(resetEmail.trim());
+      setPassword(newPassword);
       Alert.alert(zh ? '重置成功' : 'Success', zh ? '密码已重置，请重新登录' : 'Password reset. Please log in.', [{
         text: zh ? '好的' : 'OK',
         onPress: () => { setStep('login'); setResetEmail(''); setResetOtp(''); setResetToken(''); setNewPassword(''); setConfirmNewPwd(''); },
@@ -282,7 +545,7 @@ export default function App() {
         const keys = await AsyncStorage.getAllKeys();
         const toRemove = keys.filter(k => !k.includes('auth_token') && !k.includes('auth_user'));
         if (toRemove.length > 0) await AsyncStorage.multiRemove(toRemove);
-      } catch (e) {}
+      } catch {}
       if (game.resetAll) await game.resetAll();
       setAppKey(k => k + 1);
       setTimeout(resolve, 500);
@@ -293,12 +556,14 @@ export default function App() {
   const textOpacity = useRef(new Animated.Value(0)).current;
   const fadeOut = useRef(new Animated.Value(1)).current;
   const t = (k) => T[game.lang]?.[k] || T.zh[k] || k;
+  applyTheme(game.themeId);
+  const st = createAppStyles(C);
 
   useEffect(() => {
     AsyncStorage.getItem('@focusmeow_auth_token').then(token => {
       if (token) setShowWelcome(false);
     });
-  }, []);
+  }, [logoOpacity, logoScale, textOpacity]);
 
   useEffect(() => {
     Animated.parallel([
@@ -308,7 +573,7 @@ export default function App() {
     setTimeout(() => {
       Animated.timing(textOpacity, { toValue: 1, duration: 400, useNativeDriver: true }).start();
     }, 600);
-  }, []);
+  }, [logoOpacity, logoScale, textOpacity]);
 
   useEffect(() => {
     if (game.loaded && !splashDone) {
@@ -317,15 +582,14 @@ export default function App() {
       }, 1800);
       return () => clearTimeout(timer);
     }
-  }, [game.loaded]);
+  }, [fadeOut, game.loaded, splashDone]);
 
   if (!splashDone) return (
     <View style={st.ld}>
       <Animated.View style={{ opacity: fadeOut, alignItems: 'center' }}>
-        <Animated.Image source={require('./src/assets/first_logo.png')} style={{ width: 120, height: 120, borderRadius: 60, marginBottom: 24, borderWidth: 3, borderColor: '#e8940a', opacity: logoOpacity, transform: [{ scale: logoScale }] }} />
+        <Animated.Image source={require('./src/assets/first_logo.png')} style={{ width: 120, height: 120, borderRadius: 60, marginBottom: 24, borderWidth: 3, borderColor: C.primaryContainer, opacity: logoOpacity, transform: [{ scale: logoScale }] }} />
         <Animated.Text style={[st.title, { opacity: textOpacity }]}>专注喵</Animated.Text>
         <Animated.Text style={[st.sub, { opacity: textOpacity }]}>Focus Meow</Animated.Text>
-        <Animated.Text style={[st.lt, { opacity: textOpacity, marginTop: 30 }]}>{t('loading')}</Animated.Text>
       </Animated.View>
     </View>
   );
@@ -346,32 +610,49 @@ export default function App() {
         <NavigationContainer theme={{
           dark: false,
           fonts: {
-            regular: { fontFamily: 'System', fontWeight: '400' },
-            medium: { fontFamily: 'System', fontWeight: '500' },
-            bold: { fontFamily: 'System', fontWeight: '700' },
-            heavy: { fontFamily: 'System', fontWeight: '800' },
+            regular: { fontFamily: APP_FONT_FAMILY, fontWeight: '400' },
+            medium: { fontFamily: APP_FONT_FAMILY, fontWeight: '500' },
+            bold: { fontFamily: APP_FONT_FAMILY, fontWeight: '700' },
+            heavy: { fontFamily: APP_FONT_FAMILY, fontWeight: '800' },
           },
-          colors: { primary: C.primary, background: C.bg, card: '#fff', text: C.onSurface||C.text, border: C.border||C.cardBorder, notification: C.primaryContainer||C.primary },
+          colors: { primary: C.primary, background: C.bg, card: C.surfaceContainerLowest, text: C.onSurface||C.text, border: C.border||C.cardBorder, notification: C.primaryContainer||C.primary },
         }}>
-          <Tab.Navigator screenOptions={{
-            headerShown: false,
-            tabBarStyle: isFocusing ? { display: 'none' } : { backgroundColor: C.tabBar, borderTopColor: C.cardBorder, borderTopWidth: 1, height: 80, paddingBottom: 20, paddingTop: 8 },
-            tabBarActiveTintColor: C.tabActive, tabBarInactiveTintColor: C.tabInactive,
-            tabBarLabelStyle: { fontSize: 9, fontWeight: '600' },
-          }}>
-            <Tab.Screen name="Home" component={HomeStackScreen} options={{ tabBarLabel: t('home'), tabBarIcon: () => <TI emoji="🏡" /> }} />
-            <Tab.Screen name="Chat" component={ChatScreen} options={{ tabBarLabel: t('chat'), tabBarIcon: () => <TI emoji="💬" /> }} />
-            <Tab.Screen name="Collection" component={CollectionScreen} options={{ tabBarLabel: t('book'), tabBarIcon: () => <TI emoji="📖" /> }} />
-            <Tab.Screen name="AI" component={AIScreen} options={{ tabBarLabel: 'AI', tabBarIcon: () => <TI emoji="🧠" /> }} />
-            <Tab.Screen name="Stats" component={StatsScreen} options={{ tabBarLabel: t('record'), tabBarIcon: () => <TI emoji="📊" /> }} />
-            <Tab.Screen name="Settings" component={SettingsScreen} options={{ tabBarLabel: t('settings'), tabBarIcon: () => <TI emoji="⚙️" /> }} />
+          <Tab.Navigator
+            tabBar={(props) => (isFocusing ? null : <FluidTabBar {...props} />)}
+            screenOptions={{ headerShown: false }}
+          >
+            <Tab.Screen
+              name="Home"
+              component={HomeStackScreen}
+              options={{ tabType: 'home', tabLabel: t('home') }}
+            />
+            <Tab.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={{ tabType: 'chat', tabLabel: t('chat') }}
+            />
+            <Tab.Screen
+              name="Collection"
+              component={CollectionScreen}
+              options={{ tabType: 'collection', tabLabel: t('book') }}
+            />
+            <Tab.Screen
+              name="AI"
+              component={AIScreen}
+              options={{ tabType: 'ai', tabLabel: '记录' }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{ tabType: 'settings', tabLabel: t('settings') }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       </GameContext.Provider>
     </SafeAreaProvider></AuthProvider>
   );
 }
-const st = StyleSheet.create({
+const createAppStyles = (C) => StyleSheet.create({
   ld: { flex: 1, backgroundColor: C.bg, alignItems: 'center', justifyContent: 'center' },
   title: { color: C.primary, fontSize: 36, fontWeight: '900', letterSpacing: 1 },
   sub: { color: C.tertiary||C.textSec, fontSize: 14, marginTop: 4 },

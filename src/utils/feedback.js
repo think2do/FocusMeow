@@ -1,4 +1,5 @@
 import { Vibration } from 'react-native';
+import { isHapticsEnabled, playSfx } from './audio';
 
 const VIBRATE = {
   tap: 10,
@@ -12,6 +13,7 @@ const VIBRATE = {
 };
 
 export function vibrate(type = 'short') {
+  if (!isHapticsEnabled()) return;
   try {
     const pattern = VIBRATE[type] || VIBRATE.short;
     Vibration.vibrate(pattern);
@@ -19,14 +21,12 @@ export function vibrate(type = 'short') {
 }
 
 export function playFeedback(event) {
+  playSfx(event);
   switch (event) {
     case 'start': vibrate('medium'); break;
     case 'complete': vibrate('success'); break;
-    case 'newCat': vibrate('double'); break;
-    case 'rareCat': vibrate('triple'); break;
     case 'hungry': vibrate('short'); break;
     case 'dead': vibrate('sad'); break;
-    case 'tap': vibrate('tap'); break;
-    default: vibrate('tap');
+    default: break;
   }
 }

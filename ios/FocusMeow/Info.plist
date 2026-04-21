@@ -29,24 +29,28 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
 		<true/>
-		<key>NSCameraUsageDescription</key>
-		<string>Avatar photo</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Avatar selection</string>
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>fetch</string>
-		</array>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>专注喵需要麦克风权限，用于语音输入</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>我们需要访问您的相册，以便允许您保存或上传专注记录图片。</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>专注喵需要语音识别权限，将你的语音转为文字发送给猫咪</string>
+	<key>NSSupportsSuddenTermination</key>
+	<false/>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>

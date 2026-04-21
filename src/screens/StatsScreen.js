@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useGame } from '../../App';
 import CatAvatar from '../components/CatAvatar';
 import { N, fmtT, fmtShort, xpFor, totXp } from '../utils/helpers';
 
 export default function StatsScreen() {
   const g = useGame();
-  const { t, lang, cats, stats } = g;
+  const guestMode = g.guestMode;
+  const { t, lang, cats, stats, setCats } = g;
+  const zh = lang === 'zh';
+  const discardCat = (cat) => {
+    if (cat.id === 'cat-0') return;
+    Alert.alert(zh ? '确认丢弃' : 'Confirm Discard', zh ? '确定要丢弃 '+N(cat.name,lang)+' 吗？' : 'Discard '+N(cat.name,lang)+'?',
+      [{text: zh ? '取消' : 'Cancel', style: 'cancel'},{text: zh ? '丢弃' : 'Discard', style: 'destructive', onPress: () => setCats(cs => cs.filter(c => c.id !== cat.id))}]);
+  };
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 20, paddingBottom: 100, paddingTop: 55 }}>
       <Text style={s.h}>{t('recordTitle')}</Text>
@@ -25,7 +32,7 @@ export default function StatsScreen() {
             <View style={s.ri}><Text style={s.rn}>{N(cat.name, lang)}</Text><Text style={s.rl}>Lv.{cat.level}</Text>
               {cat.isRare && <Text style={s.rb}>{t('rareL')}</Text>}{!cat.alive && <Text style={{ color: '#D4646A', fontSize: 10 }}>💀</Text>}</View>
             <View style={s.xb}><View style={[s.xf, { width: `${cat.alive ? Math.min(100, (px / nx) * 100) : 0}%` }]} /></View>
-            <View style={s.rb2}><Text style={s.xt}>{cat.alive ? `${px}/${nx} XP` : `${cat.xp} XP`}</Text><Text style={s.xt}>🕐 {fmtShort(cat.focusTime)}</Text></View>
+            <View style={s.rb2}><Text style={s.xt}>{cat.alive ? `${px}/${nx} XP` : `${cat.xp} XP`}</Text>{!cat.alive && cat.id !== 'cat-0' ? <TouchableOpacity onPress={() => discardCat(cat)} style={{backgroundColor:'#ffdad6',paddingHorizontal:10,paddingVertical:3,borderRadius:8}}><Text style={{color:'#ba1a1a',fontSize:10,fontWeight:'700'}}>{zh ? '丢弃' : 'Discard'}</Text></TouchableOpacity> : <Text style={s.xt}>🕐 {fmtShort(cat.focusTime)}</Text>}</View>
           </View>
         </View>); })}
     </ScrollView>

@@ -4,11 +4,14 @@ import { login as apiLogin, register as apiRegister, logout as apiLogout } from 
 
 const AUTH_TOKEN_KEY = '@focusmeow_auth_token';
 const AUTH_USER_KEY = '@focusmeow_auth_user';
+const CLIENT_ID_KEY = '@focusmeow_client_id';
 const AuthContext = createContext(null);
+const createLocalId = () => `fm_client_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [clientId, setClientId] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,6 +19,12 @@ export function AuthProvider({ children }) {
       try {
         const savedToken = await AsyncStorage.getItem(AUTH_TOKEN_KEY);
         const savedUser = await AsyncStorage.getItem(AUTH_USER_KEY);
+        let savedClientId = await AsyncStorage.getItem(CLIENT_ID_KEY);
+        if (!savedClientId) {
+          savedClientId = createLocalId();
+          await AsyncStorage.setItem(CLIENT_ID_KEY, savedClientId);
+        }
+        setClientId(savedClientId);
         if (savedToken && savedUser) { setToken(savedToken); setUser(JSON.parse(savedUser)); }
       } catch (e) { console.warn('restore failed', e); }
       finally { setLoading(false); }
@@ -60,7 +69,7 @@ export function AuthProvider({ children }) {
   const isLoggedIn = !!token && !!user;
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, isLoggedIn, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, clientId, loading, isLoggedIn, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

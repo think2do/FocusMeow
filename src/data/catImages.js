@@ -8,6 +8,9 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/orange/orange_eat-4.png'),
     eat5: require('../assets/cats/orange/orange_eat-5.png'),
     happy: require('../assets/cats/orange/orange_happy.png'),
+    happy2: require('../assets/cats/orange/orange_happy2.png'),
+    hungry: require('../assets/cats/orange/orange_hungry.png'),
+    left: require('../assets/cats/orange/orange_left.png'),
     die: require('../assets/cats/orange/orange_die.png'),
   },
   ragdoll: {
@@ -19,6 +22,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/ragdoll/ragdoll_eat-4.png'),
     eat5: require('../assets/cats/ragdoll/ragdoll_eat-5.png'),
     happy: require('../assets/cats/ragdoll/ragdoll_happy.png'),
+    hungry: require('../assets/cats/ragdoll/ragdoll_hungry.png'),
+    left: require('../assets/cats/ragdoll/ragdoll_left.png'),
     die: require('../assets/cats/ragdoll/ragdoll_die.png'),
   },
   blue: {
@@ -30,6 +35,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/blue/blue_eat-4.png'),
     eat5: require('../assets/cats/blue/blue_eat-5.png'),
     happy: require('../assets/cats/blue/blue_happy.png'),
+    hungry: require('../assets/cats/blue/blue_hungry.png'),
+    left: require('../assets/cats/blue/blue_left.png'),
     die: require('../assets/cats/blue/blue_die.png'),
   },
   siamese: {
@@ -41,6 +48,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/siamese/siamese_eat-4.png'),
     eat5: require('../assets/cats/siamese/siamese_eat-5.png'),
     happy: require('../assets/cats/siamese/siamese_happy.png'),
+    hungry: require('../assets/cats/siamese/siamese_hungry.png'),
+    left: require('../assets/cats/siamese/siamese_left.png'),
     die: require('../assets/cats/siamese/siamese_die.png'),
   },
   maine: {
@@ -52,6 +61,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/maine/maine_eat-4.png'),
     eat5: require('../assets/cats/maine/maine_eat-5.png'),
     happy: require('../assets/cats/maine/maine_happy.png'),
+    hungry: require('../assets/cats/maine/maine_hungry.png'),
+    left: require('../assets/cats/maine/maine_left.png'),
     die: require('../assets/cats/maine/maine_die.png'),
   },
   sphynx: {
@@ -63,6 +74,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/sphynx/sphynx_eat-4.png'),
     eat5: require('../assets/cats/sphynx/sphynx_eat-5.png'),
     happy: require('../assets/cats/sphynx/sphynx_happy.png'),
+    hungry: require('../assets/cats/sphynx/sphynx_hungry.png'),
+    left: require('../assets/cats/sphynx/sphynx_left.png'),
     die: require('../assets/cats/sphynx/sphynx_die.png'),
   },
   devon: {
@@ -74,6 +87,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/devon/devon_eat-4.png'),
     eat5: require('../assets/cats/devon/devon_eat-5.png'),
     happy: require('../assets/cats/devon/devon_happy.png'),
+    hungry: require('../assets/cats/devon/devon_hungry.png'),
+    left: require('../assets/cats/devon/devon_left.png'),
     die: require('../assets/cats/devon/devon_die.png'),
   },
   persian: {
@@ -85,6 +100,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/persian/persian_eat-4.png'),
     eat5: require('../assets/cats/persian/persian_eat-5.png'),
     happy: require('../assets/cats/persian/persian_happy.png'),
+    hungry: require('../assets/cats/persian/persian_hungry.png'),
+    left: require('../assets/cats/persian/persian_left.png'),
     die: require('../assets/cats/persian/persian_die.png'),
   },
   garfield: {
@@ -96,6 +113,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/garfield/garfield_eat-4.png'),
     eat5: require('../assets/cats/garfield/garfield_eat-5.png'),
     happy: require('../assets/cats/garfield/garfield_happy.png'),
+    hungry: require('../assets/cats/garfield/garfield_hungry.png'),
+    left: require('../assets/cats/garfield/garfield_left.png'),
     die: require('../assets/cats/garfield/garfield_die.png'),
   },
   black: {
@@ -107,6 +126,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/black/black_eat-4.png'),
     eat5: require('../assets/cats/black/black_eat-5.png'),
     happy: require('../assets/cats/black/black_happy.png'),
+    hungry: require('../assets/cats/black/black_hungry.png'),
+    left: require('../assets/cats/black/black_left.png'),
     die: require('../assets/cats/black/black_die.png'),
   },
   rainbow: {
@@ -118,6 +139,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/rainbow/rainbow_eat-4.png'),
     eat5: require('../assets/cats/rainbow/rainbow_eat-5.png'),
     happy: require('../assets/cats/rainbow/rainbow_happy.png'),
+    hungry: require('../assets/cats/rainbow/rainbow_hungry.png'),
+    left: require('../assets/cats/rainbow/rainbow_left.png'),
     die: require('../assets/cats/rainbow/rainbow_die.png'),
   },
   couple: {
@@ -129,6 +152,8 @@ const CAT_IMAGES = {
     eat4: require('../assets/cats/couple/couple_eat-4.png'),
     eat5: require('../assets/cats/couple/couple_eat-5.png'),
     happy: require('../assets/cats/couple/couple_happy.png'),
+    hungry: require('../assets/cats/couple/couple_hungry.png'),
+    left: require('../assets/cats/couple/couple_left.png'),
     die: require('../assets/cats/couple/couple_die.png'),
   },
 };
